@@ -8,8 +8,8 @@ from keras.preprocessing import image
 # from keras.preprocessing import get_file
 from tensorflow import keras
 from keras.utils import plot_model
-# WEIGHTS_PATH = "https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5"
-WEIGHTS_PATH = "vgg16_weights_tf_dim_ordering_tf_kernels.h5"
+WEIGHTS_PATH = "https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5"
+# WEIGHTS_PATH = "vgg16_weights_tf_dim_ordering_tf_kernels.h5" # 若已下載至本地
 
 def VGG16(num_classes):
     image_input = Input(shape=(224, 224, 3))
@@ -34,14 +34,12 @@ def VGG16(num_classes):
     x = Conv2D(512,(3,3),activation='relu',padding='same',name='block4_conv1')(x)
     x = Conv2D(512,(3,3),activation='relu',padding='same',name='block4_conv2')(x)
     x = Conv2D(512,(3,3),activation='relu',padding='same',name='block4_conv3')(x)
-    # x = Conv2D(512,(3,3),activation='relu',padding='same',name='block4_conv4')(x)
     x = MaxPooling2D((2,2),strides = (2,2),name = 'block4_pool')(x)
 
     # 14,14,512 -> 7,7,512
     x = Conv2D(512,(3,3),activation='relu',padding='same',name='block5_conv1')(x)
     x = Conv2D(512,(3,3),activation='relu',padding='same',name='block5_conv2')(x)
     x = Conv2D(512,(3,3),activation='relu',padding='same',name='block5_conv3')(x)
-    # x = Conv2D(512,(3,3),activation='relu',padding='same',name='block5_conv4')(x)
     x = MaxPooling2D((2,2),strides = (2,2),name = 'block5_pool')(x)
 
     # 7,7,512 -> 25088 -> 4096 -4096 -> num_classes
@@ -58,7 +56,6 @@ if __name__ == '__main__':
     model = VGG16(1000)
     # model.summary()
     plot_model(model, "net.svg", show_shapes=True)
-    # exit()
     weights_path = tf.keras.utils.get_file('vgg16_weights_tf_dim_ordering_tf_kernels.h5', WEIGHTS_PATH, cache_subdir='models')
     model.load_weights(weights_path)
     img_path = 'elephant.jpg'
