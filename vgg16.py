@@ -5,9 +5,7 @@ from keras import Model, Sequential
 from keras.applications.imagenet_utils import (decode_predictions,preprocess_input)
 from keras.layers import (Conv2D, Dense, Flatten, GlobalAveragePooling2D,GlobalMaxPool2D,Input,MaxPooling2D)
 from keras.preprocessing import image
-# from keras.preprocessing import get_file
-from tensorflow import keras
-from keras.utils import plot_model
+# from keras.utils import plot_model
 WEIGHTS_PATH = "https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5"
 # WEIGHTS_PATH = "vgg16_weights_tf_dim_ordering_tf_kernels.h5" # 若已下載至本地
 
@@ -54,8 +52,8 @@ def VGG16(num_classes):
 
 if __name__ == '__main__':
     model = VGG16(1000)
-    # model.summary()
-    plot_model(model, "net.svg", show_shapes=True)
+    model.summary()
+#     plot_model(model, "net.svg", show_shapes=True)
     weights_path = tf.keras.utils.get_file('vgg16_weights_tf_dim_ordering_tf_kernels.h5', WEIGHTS_PATH, cache_subdir='models')
     model.load_weights(weights_path)
     img_path = 'elephant.jpg'
